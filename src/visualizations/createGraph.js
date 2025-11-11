@@ -1,4 +1,4 @@
-import network from '../data/small_net_json.json' assert { type: 'json' };
+import network from '../data/small_net_json.json'
 
 export let bikeFootGraph
 export let carGraph

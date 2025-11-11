@@ -1,6 +1,6 @@
 import { map } from "../displayOlMap";
 
-const worker = new Worker("src/workers/dijkstraGraph.worker.js");
+const worker = new Worker(new URL("../workers/dijkstraGraph.worker.js", import.meta.url), { type: "module" });
 
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
