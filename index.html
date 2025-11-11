@@ -1,37 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>routing-visualization</title>
-  </head>
-  <body>
-    <div id="app">
-      <div id="map" style="width: 100vw; height: 100vh;">
-      </div>
-      <div id="tools">
-        <h1>Toolbar</h1>
-        <button class="visualizationButton">
-          Visualize - Create Graph
-        </button>
-        <button class="visualizationButton">
-          Visualize - Create HalfEdge
-        </button>
-        <button class="visualizationButton">
-          Visualize - Dijkstra + Graph
-        </button>
-        <button class="visualizationButton">
-          Visualize - Dijkstra + HalfEdge
-        </button>
-        <button class="visualizationButton">
-          Visualize - A* + Graph
-        </button>
-        <button class="visualizationButton">
-          Visualize - A* + HalfEdge
-        </button>
-      </div>
-    </div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>routing-visualization</title>
+    </head>
+    <body>
+        <div id="app">
+            <div id="map" style="width: 100vw; height: 100vh"></div>
+            <div id="tools">
+                <h1>Toolbar</h1>
+                <button class="turnOnMapLayerButton">
+                    Turn on/off basemap
+                </button>
+                <button class="visualizationButton" id="createGraph">
+                    Create Graph
+                </button>
+                <button class="visualizationButton">
+                    Create HalfEdge
+                </button>
+                <hr style="width: 100%">
+                <input type="number" id="sleepAmount" placeholder="Sleep Amount (ms)"/>
+                <div style="display: flex; gap: 5px;">
+                    <button
+                        class="visualizationButton"
+                        id="dijkstraGraphCar"
+                        disabled
+                    >
+                        Visualize - Dijkstra + Graph(Car)
+                    </button>
+                    <button
+                        class="visualizationButton"
+                        id="dijkstraGraphBikeFoot"
+                        disabled
+                    >
+                        Visualize - Dijkstra + Graph(Bike/Foot)
+                    </button>
+                </div>
+                <button
+                    class="visualizationButton"
+                    id="dijkstraHalfEdge"
+                    disabled
+                >
+                    Visualize - Dijkstra + HalfEdge
+                </button>
+                <button class="visualizationButton" id="aStarGraph" disabled>
+                    Visualize - A* + Graph
+                </button>
+                <button class="visualizationButton" id="aStarHalfEdge" disabled>
+                    Visualize - A* + HalfEdge
+                </button>
+                <hr style="width: 100%">
+                <button class="visualizationButton" id="reset">
+                    Reset
+                </button>
+            </div>
+        </div>
+        <script type="module" src="/src/main.js"></script>
+    </body>
 </html>

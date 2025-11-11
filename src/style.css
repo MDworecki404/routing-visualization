@@ -8,6 +8,8 @@
   height: 100vh;
 }
 
+@media screen and (min-width: 601px) {
+
 #tools {
   position: absolute;
   top: 10px;
@@ -15,8 +17,8 @@
   background-color: rgba(53, 53, 53, 0.8);
   padding: 10px;
   border-radius: 5px;
-  width: 15vw;
-  height: 90vh;
+  width: 300px;
+  height: min-content;
   color: white;
   text-align: center;
   display: flex;
@@ -24,6 +26,32 @@
   align-items: center;
   gap: 10px;
 }
+}
+
+@media screen and (max-width: 600px) {
+  #tools {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(53, 53, 53, 0.8);
+  border-radius: 5px;
+  width: 100vw;
+  height: min-content;
+  color: white;
+  height: 50px;
+  overflow: scroll;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  outline: 5px solid black;
+  transition-duration: 0.3s;
+}
+  #tools:hover {
+    height: 50vh;
+  }
+}
+
 
 .visualizationButton {
   width: 100%;
@@ -40,4 +68,46 @@
 .visualizationButton:hover {
   background-color: #45a049;
   padding: 15px;
+}
+
+.turnOnMapLayerButton {
+  width: 100%;
+  padding: 10px;
+  background-color: #4c8baf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition-duration: 0.2s;
+}
+
+.turnOnMapLayerButton:hover {
+  background-color: #345e77;
+  padding: 15px;
+}
+
+#dijkstraGraphCar:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+#dijkstraGraphBikeFoot:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+#dijkstraHalfEdge:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+#aStarGraph:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+#aStarHalfEdge:disabled {
+  background-color: grey;
+  cursor: not-allowed;
 }

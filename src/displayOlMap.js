@@ -15,10 +15,23 @@ const initializeMap = () => {
             }),
         ],
         view: new View({
-            center: [1900594, 6640803],
+            center: [1890000, 6639303],
             zoom: 15,
         }),
     });
 };
 
-export { map, initializeMap };
+const toggleBasemapVisibility = () => {
+    const layers = map.getLayers();
+    const basemapLayer = layers.item(0);
+    if (basemapLayer) {
+        const currentVisibility = basemapLayer.getVisible();
+        basemapLayer.setVisible(!currentVisibility);
+    }
+}
+
+document.getElementsByClassName('turnOnMapLayerButton')[0].addEventListener('click', () => {
+    toggleBasemapVisibility();
+});
+
+export { map, initializeMap, toggleBasemapVisibility };
