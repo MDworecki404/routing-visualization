@@ -57,9 +57,13 @@ function createHalfEdges(network, type) {
             const [he1, he2] = makeEdge(v1, v2, feature.properties.oneway, azimuth);
 
             if (feature.properties.oneway === "B") {
+                he1.attributes.from = true
+                he2.attributes.from = true
                 halfEdges.push(he1, he2);
             } else if (feature.properties.oneway === "F") {
-                halfEdges.push(he1);
+                he1.attributes.from = true
+                he2.attributes.from = false
+                halfEdges.push(he1, he2);
             }
         }
     });
@@ -74,9 +78,9 @@ const serializeHalfEdges = () => {
             siblingID: he.S.id,
             oneway: he.attributes.oneway,
             azimuth: he.attributes.azimuth,
-            distance: Math.sqrt(
+            distance: he.attributes.from === true ? Math.sqrt(
                 Math.pow(he.S.V[0] - he.V[0], 2) + Math.pow(he.S.V[1] - he.V[1], 2)
-            )
+            ) : 1e9
         },
     }));
 
