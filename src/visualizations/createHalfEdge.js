@@ -1,0 +1,125 @@
+import network from "../data/small_net_json.json";
+
+export let halfEdge
+
+class HalfEdge {
+    constructor(id, V, oneway) {
+        this.id = id;
+        this.N = this;
+        this.S = null;
+        this.V = V;
+        this.attributes = {
+            oneway: oneway,
+        };
+    }
+}
+
+function makeEdge(v1, v2, oneway, azimuth) {
+    const he1 = new HalfEdge(crypto.randomUUID(), v1, oneway);
+    const he2 = new HalfEdge(crypto.randomUUID(), v2, oneway);
+    he1.S = he2;
+    he2.S = he1;
+    he1.attributes.azimuth = azimuth;
+    he2.attributes.azimuth = (azimuth + 180) % 360;
+    return [he1, he2];
+}
+
+const halfEdges = [];
+
+function calculateAzimuth(v1, v2) {
+    function toRadians(degress) {
+        return degress * (Math.PI / 180);
+    }
+
+    function toDegrees(radians) {
+        return radians * (180 / Math.PI);
+    }
+
+    const lat1 = toRadians(v1[1]);
+    const lat2 = toRadians(v2[1]);
+    const deltaLon = toRadians(v2[0] - v1[0]);
+
+    const y = Math.sin(deltaLon) * Math.cos(lat2);
+    const x =
+        Math.cos(lat1) * Math.sin(lat2) -
+        Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLon);
+    const bearing = Math.atan2(y, x);
+    return (toDegrees(bearing) + 360) % 360;
+}
+
+function createHalfEdges(network, type) {
+    network.features.forEach((feature) => {
+        const coords = feature.geometry.coordinates.flat();
+        for (let i = 0; i < coords.length - 1; i++) {
+            const v1 = coords[i];
+            const v2 = coords[i + 1];
+            const azimuth = calculateAzimuth(v1, v2);
+            const [he1, he2] = makeEdge(v1, v2, feature.properties.oneway, azimuth);
+
+            if (feature.properties.oneway === "B") {
+                halfEdges.push(he1, he2);
+            } else if (feature.properties.oneway === "F") {
+                halfEdges.push(he1);
+            }
+        }
+    });
+}
+
+const serializeHalfEdges = () => {
+    const serialized = halfEdges.map((he) => ({
+        id: he.id,
+        V: he.V,
+        S: he.S.V,
+        attributes: {
+            siblingID: he.S.id,
+            oneway: he.attributes.oneway,
+            azimuth: he.attributes.azimuth,
+            distance: Math.sqrt(
+                Math.pow(he.S.V[0] - he.V[0], 2) + Math.pow(he.S.V[1] - he.V[1], 2)
+            )
+        },
+    }));
+
+    const vertexMap = new Map();
+    serialized.forEach((he) => {
+        const key = he.V.join(",");
+        if (!vertexMap.has(key)) {
+            vertexMap.set(key, []);
+        }
+        vertexMap.get(key).push(he);
+    });
+
+    const serializedWithNext = [];
+
+    vertexMap.forEach((edges, v) => {
+
+        edges.sort((a, b) => b.attributes.azimuth - a.attributes.azimuth);
+
+        if (edges.length > 1) {
+            for (let i = 0; i < edges.length; i++) {
+                const current = edges[i];
+                const next = edges[(i + 1) % edges.length];
+                current.N = next.id;
+                serializedWithNext.push(current);
+            }
+        } else {
+            edges[0].N = edges[0].id;
+            serializedWithNext.push(edges[0]);
+        }
+    });
+
+    return serializedWithNext;
+};
+
+export const initHalfEdge = () => {
+    document.getElementById('createHalfEdge').addEventListener('click', () => {
+        createHalfEdges(network);
+        const halfEdges = serializeHalfEdges();
+        halfEdge = halfEdges
+        console.log("Half-Edge structure created:", halfEdges);
+        document.getElementById('dijkstraHalfEdge').disabled = false;
+        document.getElementById('aStarHalfEdge').disabled = false;
+    });
+}
+
+

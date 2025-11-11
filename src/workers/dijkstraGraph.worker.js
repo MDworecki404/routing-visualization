@@ -47,7 +47,9 @@ const dijkstra = async (startNode, endNode, graph, sleepAmount) => {
 
         S.set(uKey, Q.get(uKey));
         self.postMessage({ current: Q.get(uKey).node });
-        await sleep(sleepAmount);
+        if (!isNaN(sleepAmount)) {
+            await sleep(sleepAmount);
+        }
         Q.delete(uKey);
     }
 

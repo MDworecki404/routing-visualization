@@ -1,6 +1,6 @@
 import { map } from "../displayOlMap";
 
-const worker = new Worker(new URL("../workers/dijkstraGraph.worker.js", import.meta.url), { type: "module" });
+const worker = new Worker(new URL("../workers/dijkstraHalfEdge.worker.js", import.meta.url), { type: "module" });
 
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
@@ -27,7 +27,7 @@ worker.onmessage = function (e) {
         const feature = new Feature({ geometry: line });
         feature.setStyle(
             new Style({
-                stroke: new Stroke({ color: "rgb(76, 144, 175)", width: 4 }),
+                stroke: new Stroke({ color: "rgb(169, 177, 57)", width: 4 }),
             })
         );
         const vectorSource = new VectorSource({ features: [feature] });
@@ -59,7 +59,7 @@ worker.onmessage = function (e) {
     }
 };
 
-export const runDijkstra = async (startNode, endNode, graph) => {
+export const runHalfEdge = async (startNode, endNode, graph) => {
     const startTransformed = fromLonLat(startNode);
     const endTransformed = fromLonLat(endNode);
 

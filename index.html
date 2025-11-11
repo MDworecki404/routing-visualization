@@ -2,9 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link rel="icon" type="image/svg+xml" href="/graph.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>routing-visualization</title>
+        <title>Nearest route alghoritms</title>
     </head>
     <body>
         <div id="app">
@@ -17,27 +17,21 @@
                 <button class="visualizationButton" id="createGraph">
                     Create Graph
                 </button>
-                <button class="visualizationButton">
-                    Create HalfEdge
+                <button class="visualizationButton" id="createHalfEdge">Create HalfEdge</button>
+                <hr style="width: 100%" />
+                <h3><span>Time to calculate: <span id="timeToCalculate">0</span> ms</span></h3>
+                <input
+                    type="number"
+                    id="sleepAmount"
+                    placeholder="Sleep Amount (ms)"
+                />
+                <button
+                    class="visualizationButton"
+                    id="dijkstraGraphCar"
+                    disabled
+                >
+                    Visualize - Dijkstra + Graph
                 </button>
-                <hr style="width: 100%">
-                <input type="number" id="sleepAmount" placeholder="Sleep Amount (ms)"/>
-                <div style="display: flex; gap: 5px;">
-                    <button
-                        class="visualizationButton"
-                        id="dijkstraGraphCar"
-                        disabled
-                    >
-                        Visualize - Dijkstra + Graph(Car)
-                    </button>
-                    <button
-                        class="visualizationButton"
-                        id="dijkstraGraphBikeFoot"
-                        disabled
-                    >
-                        Visualize - Dijkstra + Graph(Bike/Foot)
-                    </button>
-                </div>
                 <button
                     class="visualizationButton"
                     id="dijkstraHalfEdge"
@@ -51,10 +45,8 @@
                 <button class="visualizationButton" id="aStarHalfEdge" disabled>
                     Visualize - A* + HalfEdge
                 </button>
-                <hr style="width: 100%">
-                <button class="visualizationButton" id="reset">
-                    Reset
-                </button>
+                <hr style="width: 100%" />
+                <button class="visualizationButton" id="reset">Reset</button>
             </div>
         </div>
         <script type="module" src="/src/main.js"></script>

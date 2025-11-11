@@ -37,9 +37,6 @@ allowedFclass.set("car", [
     "service",
     "living_street",
     "unclassified",
-]);
-
-allowedFclass.set("bikeFoot", [
     "footway",
     "pedestrian",
     "path",
@@ -51,32 +48,51 @@ allowedFclass.set("bikeFoot", [
     "bridleway",
 ]);
 
-const getUniqueNodes = (network, graphType) => {
+allowedFclass.set("bikeFoot", [
+    "motorway",
+    "motorway_link",
+    "trunk",
+    "primary",
+    "primary_link",
+    "secondary",
+    "secondary_link",
+    "tertiary",
+    "tertiary_link",
+    "residential",
+    "service",
+    "living_street",
+    "unclassified",
+    "footway",
+    "pedestrian",
+    "path",
+    "cycleway",
+    "steps",
+    "service",
+    "living_street",
+    "track",
+    "bridleway",
+]);
+
+const getUniqueNodes = (network) => {
     const nodes = new Map();
     network.features.forEach((feature) => {
-        if (
-            graphType &&
-            allowedFclass.get(graphType).includes(feature.properties.fclass)
-        ) {
-            const coords = feature.geometry.coordinates;
-
-            flatCoords(coords);
-            function flatCoords(arr) {
-                arr.forEach((item) => {
-                    if (Array.isArray(item[0])) {
-                        flatCoords(item);
-                    } else {
-                        nodes.set(item.join(","), item);
-                    }
-                });
-            }
+        const coords = feature.geometry.coordinates;
+        flatCoords(coords);
+        function flatCoords(arr) {
+            arr.forEach((item) => {
+                if (Array.isArray(item[0])) {
+                    flatCoords(item);
+                } else {
+                    nodes.set(item.join(","), item);
+                }
+            });
         }
     });
     return nodes;
 };
 
 const createGraph = (network, graphType) => {
-    const uniqueNodes = getUniqueNodes(network, graphType);
+    const uniqueNodes = getUniqueNodes(network);
     /** @type {Node[]} */
     let graph = [];
     // Użyj mapy do szybkiego dostępu do węzłów
@@ -92,12 +108,6 @@ const createGraph = (network, graphType) => {
     });
 
     network.features.forEach((feature) => {
-        if (
-            !graphType ||
-            !allowedFclass.get(graphType)?.includes(feature.properties.fclass)
-        ) {
-            return;
-        }
         let lines = [];
         if (feature.geometry.type === "LineString") {
             lines = [feature.geometry.coordinates];
@@ -148,6 +158,6 @@ export const initGraphs = () => {
         bikeFootGraph = graphBikeFoot;
         carGraph = graphCar;
         document.getElementById('dijkstraGraphCar').disabled = false;
-        document.getElementById('dijkstraGraphBikeFoot').disabled = false;
+        document.getElementById('aStarGraph').disabled = false;
     });
 }

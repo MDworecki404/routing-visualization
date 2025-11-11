@@ -112,9 +112,8 @@
   cursor: not-allowed;
 }
 
-#dijkstraGraphBikeFoot:disabled {
-  background-color: grey;
-  cursor: not-allowed;
+#dijkstraGraphCar {
+  background-color: rgb(76, 144, 175);
 }
 
 #dijkstraHalfEdge:disabled {
@@ -122,12 +121,24 @@
   cursor: not-allowed;
 }
 
+#dijkstraHalfEdge {
+  background-color: rgb(169, 177, 57);
+}
+
 #aStarGraph:disabled {
   background-color: grey;
   cursor: not-allowed;
 }
 
+#aStarGraph {
+  background-color: rgb(170, 68, 218);
+}
+
 #aStarHalfEdge:disabled {
   background-color: grey;
   cursor: not-allowed;
+}
+
+#aStarHalfEdge {
+  background-color: rgb(230, 69, 104);
 }
