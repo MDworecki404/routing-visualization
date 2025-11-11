@@ -34,7 +34,7 @@
   bottom: 0;
   background-color: rgba(53, 53, 53, 0.8);
   border-radius: 5px;
-  width: 100vw;
+  width: 100dvw;
   height: min-content;
   color: white;
   height: 50px;
@@ -48,7 +48,7 @@
   transition-duration: 0.3s;
 }
   #tools:hover {
-    height: 50vh;
+    height: 50dvh;
   }
 }
 
