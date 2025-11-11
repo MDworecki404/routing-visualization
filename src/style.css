@@ -34,8 +34,10 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  transition-duration: 0.2s;
 }
 
 .visualizationButton:hover {
   background-color: #45a049;
+  padding: 15px;
 }
