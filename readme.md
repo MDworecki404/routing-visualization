@@ -177,6 +177,8 @@ Optimized topological representation where each edge is split into two directed 
   - Purple: A* + Graph
   - Pink: A* + HalfEdge
 
+ https://github.com/user-attachments/assets/a3bc70da-b9d0-4bfc-8708-c0a25153de43
+
 ## ⚡ Performance
 
 All pathfinding algorithms run in Web Workers to prevent blocking the main thread. This ensures:
